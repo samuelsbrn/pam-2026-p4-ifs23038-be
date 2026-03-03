@@ -7,16 +7,16 @@ import org.delcom.entities.Motor
 data class MotorRequest(
     var nama: String = "",
     var deskripsi: String = "",
-    var manfaat: String = "",
-    var efekSamping: String = "",
+    var spesifikasi: String = "",
+    var harga: String = "",
     var pathGambar: String = "",
 ){
     fun toMap(): Map<String, Any?> {
         return mapOf(
             "nama" to nama,
             "deskripsi" to deskripsi,
-            "manfaat" to manfaat,
-            "efekSamping" to efekSamping,
+            "spesifikasi" to spesifikasi,
+            "harga" to harga,
             "pathGambar" to pathGambar
         )
     }
@@ -25,10 +25,9 @@ data class MotorRequest(
         return Motor(
             nama = nama,
             deskripsi = deskripsi,
-            manfaat = manfaat,
-            efekSamping = efekSamping,
-            pathGambar =  pathGambar,
+            spesifikasi = spesifikasi,
+            harga = harga,
+            pathGambar = pathGambar,
         )
     }
-
 }

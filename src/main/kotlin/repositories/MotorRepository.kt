@@ -52,8 +52,8 @@ class MotorRepository : IMotorRepository {
             nama = motor.nama
             pathGambar = motor.pathGambar
             deskripsi = motor.deskripsi
-            manfaat = motor.manfaat
-            efekSamping = motor.efekSamping
+            spesifikasi = motor.spesifikasi
+            harga = motor.harga
             createdAt = motor.createdAt
             updatedAt = motor.updatedAt
         }
@@ -71,8 +71,8 @@ class MotorRepository : IMotorRepository {
             motorDAO.nama = newMotor.nama
             motorDAO.pathGambar = newMotor.pathGambar
             motorDAO.deskripsi = newMotor.deskripsi
-            motorDAO.manfaat = newMotor.manfaat
-            motorDAO.efekSamping = newMotor.efekSamping
+            motorDAO.spesifikasi = newMotor.spesifikasi
+            motorDAO.harga = newMotor.harga
             motorDAO.updatedAt = newMotor.updatedAt
             true
         } else {
@@ -86,5 +86,4 @@ class MotorRepository : IMotorRepository {
         }
         rowsDeleted == 1
     }
-
 }

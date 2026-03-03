@@ -12,8 +12,8 @@ data class Motor(
     var nama: String,
     var pathGambar: String,
     var deskripsi: String,
-    var manfaat: String,
-    var efekSamping: String,
+    var spesifikasi: String,
+    var harga: String,
 
     @Contextual
     val createdAt: Instant = Clock.System.now(),

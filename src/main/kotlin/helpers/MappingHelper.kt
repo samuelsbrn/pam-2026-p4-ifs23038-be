@@ -27,8 +27,8 @@ fun daoToModel(dao: MotorDAO) = Motor(
     dao.nama,
     dao.pathGambar,
     dao.deskripsi,
-    dao.manfaat,
-    dao.efekSamping,
+    dao.spesifikasi,
+    dao.harga,
     dao.createdAt,
     dao.updatedAt
 )
