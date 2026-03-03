@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS plants (
 CREATE TABLE IF NOT EXISTS motors (
                                       id UUID PRIMARY KEY,
                                       nama VARCHAR(100) NOT NULL,
-    pathGambar VARCHAR(255) NOT NULL,
+    path_gambar VARCHAR(255) NOT NULL,
     deskripsi TEXT NOT NULL,
     spesifikasi TEXT NOT NULL,
     harga TEXT NOT NULL,
