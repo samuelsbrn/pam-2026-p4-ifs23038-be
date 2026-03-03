@@ -143,7 +143,7 @@ Content-Type: application/json
 
 
 ### Menambahkan data motor baru
-# @name PostMotor
+### Tambah Motor Baru
 POST {{BaseUrl}}/motors
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
@@ -156,16 +156,16 @@ Content-Disposition: form-data; name="deskripsi"
 
 Motor sport 150cc dengan desain aerodinamis dan performa tinggi
 --WebAppBoundary
-Content-Disposition: form-data; name="manfaat"
+Content-Disposition: form-data; name="spesifikasi"
 
-Cocok untuk perjalanan jauh dan penggunaan harian
+Mesin 149.16 cc DOHC 4-Katup, Liquid Cooled, Transmisi 6-Kecepatan
 --WebAppBoundary
-Content-Disposition: form-data; name="efekSamping"
+Content-Disposition: form-data; name="harga"
 
-Konsumsi bahan bakar lebih tinggi dibanding motor bebek
+37000000
 --WebAppBoundary
-Content-Disposition: form-data; name="file"; filename="R15.png"
-Content-Type: image/png
+Content-Disposition: form-data; name="file"; filename="R15.jpg"
+Content-Type: image/jpeg
 
 < ./R15.jpg
 --WebAppBoundary--

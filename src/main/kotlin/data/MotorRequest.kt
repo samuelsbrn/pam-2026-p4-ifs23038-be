@@ -15,8 +15,8 @@ data class MotorRequest(
         return mapOf(
             "nama" to nama,
             "deskripsi" to deskripsi,
-            "spesifikasi" to spesifikasi,
-            "harga" to harga,
+            "spesifikasi" to spesifikasi, // UBAH "manfaat" JADI INI
+            "harga" to harga,             // UBAH "efekSamping" JADI INI
             "pathGambar" to pathGambar
         )
     }

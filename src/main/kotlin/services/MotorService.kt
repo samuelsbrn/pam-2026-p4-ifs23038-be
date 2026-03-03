@@ -57,14 +57,18 @@ class MotorService(private val motorRepository: IMotorRepository) {
                         "harga" -> motorReq.harga = part.value
                     }
                 }
+
                 is PartData.FileItem -> {
+
                     val ext = part.originalFileName
                         ?.substringAfterLast('.', "")
                         ?.let { if (it.isNotEmpty()) ".$it" else "" }
                         ?: ""
 
+
                     val fileName = UUID.randomUUID().toString() + ext
                     val filePath = "uploads/motors/$fileName"
+
 
                     val file = File(filePath)
                     file.parentFile.mkdirs()
@@ -72,6 +76,7 @@ class MotorService(private val motorRepository: IMotorRepository) {
                     part.provider().copyAndClose(file.writeChannel())
                     motorReq.pathGambar = filePath
                 }
+
                 else -> {}
             }
             part.dispose()
@@ -95,22 +100,29 @@ class MotorService(private val motorRepository: IMotorRepository) {
         }
     }
 
+
     suspend fun createMotor(call: ApplicationCall) {
+
         val motorReq = getMotorRequest(call)
         validateMotorRequest(motorReq)
 
+
         val existMotor = motorRepository.getMotorByName(motorReq.nama)
         if(existMotor != null){
+
             val tmpFile = File(motorReq.pathGambar)
             if(tmpFile.exists()){
                 tmpFile.delete()
             }
+
             throw AppException(409, "Motor dengan nama ini sudah terdaftar!")
         }
+
 
         val motorId = motorRepository.addMotor(
             motorReq.toEntity()
         )
+
 
         val response = DataResponse(
             "success",
@@ -121,18 +133,24 @@ class MotorService(private val motorRepository: IMotorRepository) {
     }
 
     suspend fun updateMotor(call: ApplicationCall) {
+
         val id = call.parameters["id"]
             ?: throw AppException(400, "ID Motor tidak boleh kosong!")
 
+
         val oldMotor = motorRepository.getMotorById(id) ?: throw AppException(404, "Data Motor tidak tersedia!")
 
+
         val motorReq = getMotorRequest(call)
+
 
         if(motorReq.pathGambar.isEmpty()){
             motorReq.pathGambar = oldMotor.pathGambar
         }
 
+
         validateMotorRequest(motorReq)
+
 
         if(motorReq.nama != oldMotor.nama){
             val existMotor = motorRepository.getMotorByName(motorReq.nama)
@@ -145,6 +163,7 @@ class MotorService(private val motorRepository: IMotorRepository) {
             }
         }
 
+
         if(motorReq.pathGambar != oldMotor.pathGambar){
             val oldFile = File(oldMotor.pathGambar)
             if(oldFile.exists()){
@@ -152,12 +171,14 @@ class MotorService(private val motorRepository: IMotorRepository) {
             }
         }
 
+
         val isUpdated = motorRepository.updateMotor(
             id, motorReq.toEntity()
         )
         if (!isUpdated) {
             throw AppException(400, "Gagal memperbarui data Motor!")
         }
+
 
         val response = DataResponse(
             "success",
@@ -168,21 +189,27 @@ class MotorService(private val motorRepository: IMotorRepository) {
     }
 
     suspend fun deleteMotor(call: ApplicationCall) {
+
         val id = call.parameters["id"]
             ?: throw AppException(400, "ID Motor tidak boleh kosong!")
 
+
         val oldMotor = motorRepository.getMotorById(id) ?: throw AppException(404, "Data Motor tidak tersedia!")
 
+
         val oldFile = File(oldMotor.pathGambar)
+
 
         val isDeleted = motorRepository.removeMotor(id)
         if (!isDeleted) {
             throw AppException(400, "Gagal menghapus data Motor!")
         }
 
+
         if (oldFile.exists()) {
             oldFile.delete()
         }
+
 
         val response = DataResponse(
             "success",
@@ -193,11 +220,14 @@ class MotorService(private val motorRepository: IMotorRepository) {
     }
 
     suspend fun getMotorImage(call: ApplicationCall) {
+
         val id = call.parameters["id"]
             ?: return call.respond(HttpStatusCode.BadRequest)
 
+
         val motor = motorRepository.getMotorById(id)
             ?: return call.respond(HttpStatusCode.NotFound)
+
 
         val file = File(motor.pathGambar)
 
@@ -205,6 +235,8 @@ class MotorService(private val motorRepository: IMotorRepository) {
             return call.respond(HttpStatusCode.NotFound)
         }
 
+
         call.respondFile(file)
     }
+
 }
